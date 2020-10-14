@@ -48,8 +48,6 @@ final class ListViewController: UIViewController, UITableViewDataSource, UITable
     fileprivate var list : List?
     fileprivate var sortingValueArray : [String]?
     
-    fileprivate let queue = DispatchQueue.global()
-    
     fileprivate var toolBar = UIToolbar()
     fileprivate var picker  = UIPickerView()
     
