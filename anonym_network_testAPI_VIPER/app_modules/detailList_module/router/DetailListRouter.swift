@@ -10,8 +10,9 @@ import  UIKit
 
 final class DetailListRouter : PresenterToDetailListRouterProtocol{
     
-    static func createDetailListModule(list : List?, indexList : Int?) -> DetailListViewController {
-        let view = mainStoryBoard.instantiateViewController(identifier: "DetailListViewController") as! DetailListViewController
+    static func createDetailListModule(list : ItemsList?, indexList : Int?) -> DetailListViewController {
+        
+        let view = DetailListViewController()
         let presenter : ViewToDetailListPresenterProtocol & InteractorToDetailListPresenterProtocol = DetailListPresenter()
         let router : PresenterToDetailListRouterProtocol = DetailListRouter()
         let interactor : PresenterToDetailListInteractorProtocol = DetailListInteractor()
@@ -26,9 +27,5 @@ final class DetailListRouter : PresenterToDetailListRouterProtocol{
         presenter.indexList = indexList
         
         return view
-    }
-    
-    static var mainStoryBoard : UIStoryboard{
-        return UIStoryboard(name: "Main", bundle: Bundle.main)
     }
 }

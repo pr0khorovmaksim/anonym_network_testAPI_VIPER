@@ -33,7 +33,6 @@ final class List : Codable {
 final class ErrorsList : Codable {
     
     let orderBy : String?
-    
 }
 
 final class DataListItems : Codable {
@@ -74,7 +73,6 @@ final class ItemsList : Codable {
     let author : AuthorList?
     let stats : StatsList?
     let isMyFavorite : Bool?
-    
 }
 
 final class CoordinatesList : Codable {
@@ -82,7 +80,6 @@ final class CoordinatesList : Codable {
     let latitude : Double?
     let longitude : Double?
     let zoom : String?
-    
 }
 
 final class ContentsList : Codable {
@@ -90,7 +87,6 @@ final class ContentsList : Codable {
     var type : String?
     let id : String?
     let data : DataListContents?
-    
 }
 
 final class AwardsList : Codable {
@@ -131,7 +127,6 @@ final class AuthorList : Codable {
     let statistics : StatisticsListAuthor?
     let tagline : String?
     let data : DataAuthor?
-    
 }
 
 final class StatsList : Codable {
@@ -160,7 +155,6 @@ final class BannerListAuthor : Codable {
     let type : String?
     let id : String?
     let data : DataListContents?
-    
 }
 
 final class AuthListAuthor : Codable {
@@ -193,12 +187,10 @@ final class DataBannerListValue : Codable {
     
     let url : String?
     let size : SizeBannerListValue?
-    
 }
 
 final class SizeBannerListValue : Codable {
     
     let width : Int?
     let height : Int?
-    
 }

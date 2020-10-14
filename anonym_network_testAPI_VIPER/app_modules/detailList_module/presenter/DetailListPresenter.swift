@@ -13,7 +13,7 @@ final class DetailListPresenter : ViewToDetailListPresenterProtocol{
     var router: PresenterToDetailListRouterProtocol?
     var interactor: PresenterToDetailListInteractorProtocol?
     
-    var list : List?
+    var list : ItemsList?
     var indexList : Int?
     
     func loadModule(){
@@ -23,7 +23,7 @@ final class DetailListPresenter : ViewToDetailListPresenterProtocol{
 
 extension DetailListPresenter : InteractorToDetailListPresenterProtocol {
     
-    func viewData(list: List?, indexList: Int?){
+    func viewData(list: ItemsList?, indexList: Int?){
         view?.seeData(list: list, indexList: indexList)
     }
 }

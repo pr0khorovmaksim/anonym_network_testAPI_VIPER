@@ -12,7 +12,7 @@ final class ListRouter : PresenterToListRouterProtocol {
     
     static func createListModule() -> ListViewController {
         
-        let view = mainStoryBoard.instantiateViewController(identifier: "ListViewController") as! ListViewController
+        let view = ListViewController()
         let presenter : ViewToListPresenterProtocol & InteractorToListPresenterProtocol = ListPresenter()
         let router : PresenterToListRouterProtocol = ListRouter()
         let interactor : PresenterToListInteractorProtocol = ListInteractor()
@@ -26,16 +26,10 @@ final class ListRouter : PresenterToListRouterProtocol {
         return view
     }
     
-    static var  mainStoryBoard : UIStoryboard{
-        return UIStoryboard(name: "Main", bundle: Bundle.main)
-    }
-    
-    
-    func showDetailViewController(navigationController : UINavigationController?, list : List?, indexList : Int?){
+    func showDetailViewController(navigationController : UINavigationController?, list : ItemsList?, indexList : Int?){
         
         let detailModule = DetailListRouter.createDetailListModule(list : list, indexList : indexList)
         navigationController!.pushViewController(detailModule, animated: true)
         
     }
-    
 }

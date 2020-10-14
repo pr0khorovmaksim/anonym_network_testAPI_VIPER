@@ -11,8 +11,13 @@ final class NetworkDataFetcher{
     
     fileprivate let networkService : NetworkService? = NetworkService()
     
-    func fetchList(urlString: String, httpMethod : String, parameters : [String : Any], response: @escaping (List?) -> Void) {
-        networkService?.request(urlString: urlString, httpMethod : httpMethod, parameters : parameters ) { (result) in
+    fileprivate let url = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
+    fileprivate let httpMethod = "GET"
+    
+    func fetchList(parameters : [String : Any]?, response: @escaping (List?) -> Void) {
+        
+        networkService?.request(urlString: url, httpMethod : httpMethod, parameters : parameters ) { (result) in
+            
             switch result {
             case .success(let data):
                 do {

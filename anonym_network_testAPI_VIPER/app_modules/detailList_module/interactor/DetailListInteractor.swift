@@ -11,7 +11,7 @@ final class DetailListInteractor : PresenterToDetailListInteractorProtocol {
     
     var presenter: InteractorToDetailListPresenterProtocol?
     
-    func dataProcessing(list : List?, indexList : Int?){
+    func dataProcessing(list : ItemsList?, indexList : Int?){
         presenter?.viewData(list: list, indexList: indexList)
     }
     

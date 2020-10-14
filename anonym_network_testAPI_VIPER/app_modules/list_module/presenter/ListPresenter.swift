@@ -14,15 +14,20 @@ final class ListPresenter : ViewToListPresenterProtocol {
     var router: PresenterToListRouterProtocol?
     var interactor: PresenterToListInteractorProtocol?
     
-    func dataFetcher(after : String?, orderBy : String?){
-        interactor?.getRequest(after : after, orderBy : orderBy)
+    func dataFetcher(){
+        interactor?.getRequest()
     }
     
     func sortingTap(){
         interactor?.dataSorting()
     }
     
-    func goToDetail(navigationController : UINavigationController?, list : List?, indexList : Int?){
+    func sortingDidSelect(indexSort : Int?){
+        interactor?.sortingDataProcessing(indexSort: indexSort)
+    }
+    
+    func goToDetail(navigationController : UINavigationController?, list : ItemsList?, indexList : Int?){
+        
         router?.showDetailViewController(navigationController: navigationController, list: list, indexList: indexList)
     }
 }
@@ -35,5 +40,9 @@ extension ListPresenter : InteractorToListPresenterProtocol{
     
     func viewSorting(sortingValueArray : [String]?){
         view?.seeSorting(sortingValueArray: sortingValueArray)
+    }
+    
+    func viewError(errorMessage : String?){
+        view?.seeError(errorMessage : errorMessage)
     }
 }

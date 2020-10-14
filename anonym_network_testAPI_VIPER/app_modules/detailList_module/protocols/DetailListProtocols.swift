@@ -13,19 +13,19 @@ protocol ViewToDetailListPresenterProtocol : class {
     var router : PresenterToDetailListRouterProtocol? { get set }
     var interactor : PresenterToDetailListInteractorProtocol? { get set }
     
-    var list : List? { get set }
+    var list : ItemsList? { get set }
     var indexList : Int? { get set }
     
     func loadModule()
 }
 
 protocol PresenterToDetailListViewProtocol : class {
-    func seeData(list: List?, indexList: Int?)
+    func seeData(list: ItemsList?, indexList: Int?)
 }
 
 protocol PresenterToDetailListRouterProtocol : class {
     
-    static func createDetailListModule(list : List?, indexList : Int?) -> DetailListViewController
+    static func createDetailListModule(list : ItemsList?, indexList : Int?) -> DetailListViewController
     
 }
 
@@ -33,10 +33,10 @@ protocol PresenterToDetailListInteractorProtocol : class {
     
     var presenter : InteractorToDetailListPresenterProtocol? { get set }
     
-    func dataProcessing(list : List?, indexList : Int?)
+    func dataProcessing(list : ItemsList?, indexList : Int?)
 }
 
 protocol InteractorToDetailListPresenterProtocol : class {
     
-    func viewData(list: List?, indexList: Int?)
+    func viewData(list: ItemsList?, indexList: Int?)
 }

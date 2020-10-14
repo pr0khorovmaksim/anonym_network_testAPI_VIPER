@@ -13,35 +13,38 @@ protocol ViewToListPresenterProtocol : class {
     var view : PresenterToListViewProtocol? { get set }
     var router : PresenterToListRouterProtocol? { get set }
     var interactor : PresenterToListInteractorProtocol? { get set }
- 
-    func dataFetcher(after : String?, orderBy : String?)
+    
+    func dataFetcher()
     func sortingTap()
-    func goToDetail(navigationController : UINavigationController?, list : List?, indexList : Int?)
+    func sortingDidSelect(indexSort : Int?)
+    func goToDetail(navigationController : UINavigationController?, list : ItemsList?, indexList : Int?)
 }
 
 protocol PresenterToListViewProtocol : class {
     
     func seeData (list : List?)
     func seeSorting(sortingValueArray : [String]?)
+    func seeError(errorMessage : String?)
 }
 
 protocol PresenterToListRouterProtocol : class {
     
     static func createListModule() -> ListViewController
-    func showDetailViewController(navigationController : UINavigationController?, list : List?, indexList : Int?)
-    
+    func showDetailViewController(navigationController : UINavigationController?, list : ItemsList?, indexList : Int?)
 }
 
 protocol PresenterToListInteractorProtocol : class {
     
     var presenter : InteractorToListPresenterProtocol? { get set }
     
-    func getRequest(after : String?, orderBy : String?)
+    func getRequest()
     func dataSorting()
+    func sortingDataProcessing(indexSort : Int?)
 }
 
 protocol InteractorToListPresenterProtocol : class {
     
     func viewData (list : List?)
     func viewSorting(sortingValueArray : [String]?)
+    func viewError(errorMessage : String?)
 }

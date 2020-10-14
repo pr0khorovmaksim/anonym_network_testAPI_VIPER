@@ -15,26 +15,25 @@ extension ListViewController{
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.backgroundColor = #colorLiteral(red: 0.7568627451, green: 0.7568627451, blue: 0.7568627451, alpha: 1)
-        headerView.backgroundColor = #colorLiteral(red: 0.7568627451, green: 0.7568627451, blue: 0.7568627451, alpha: 1)
+        view.addSubview(tableView)
         
-        sortingOutlet.backgroundColor = #colorLiteral(red: 1, green: 0.5137254902, blue: 0.5137254902, alpha: 1)
-        sortingOutlet.titleLabel?.font =  UIFont.systemFont(ofSize: 20.0, weight: .regular)
-        sortingOutlet.titleLabel?.numberOfLines = 1
-        sortingOutlet.titleLabel?.adjustsFontSizeToFitWidth = true
-        sortingOutlet.titleLabel?.minimumScaleFactor = 0.08
-        sortingOutlet.tintColor = .white
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
-        sortingOutlet.layer.cornerRadius = sortingOutlet.bounds.size.height/2
+        sortingOutlet.addTarget(self, action: #selector(sorting), for: .touchUpInside)
         
-        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(sortingOutlet)
         
-        headerView.widthAnchor.constraint(equalTo: self.tableView.widthAnchor, multiplier: 1).isActive = true
-        headerView.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, multiplier: 0.1).isActive = true
-     
-        self.tableView.tableHeaderView = headerView
-        self.tableView.tableHeaderView?.layoutIfNeeded()
+        sortingOutlet.centerXAnchor.constraint(equalTo: headerView.centerXAnchor).isActive = true
+        sortingOutlet.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
         
+        tableView.tableHeaderView = headerView
+        tableView.tableHeaderView?.layoutIfNeeded()
+        
+        headerView.widthAnchor.constraint(equalTo: tableView.widthAnchor, multiplier: 1).isActive = true
+        headerView.heightAnchor.constraint(equalTo: tableView.heightAnchor, multiplier: 0.1).isActive = true
     }
     
     func errorAlert(alertMessage : String?){

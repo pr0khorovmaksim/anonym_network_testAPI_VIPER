@@ -6,55 +6,70 @@
 //
 
 import Foundation
+import UIKit
 
 final class ListInteractor : PresenterToListInteractorProtocol {
     
     var presenter: InteractorToListPresenterProtocol?
     
     fileprivate let networkDataFetcher : NetworkDataFetcher? = NetworkDataFetcher()
-    fileprivate var list : List?
     
-    func getRequest(after : String?, orderBy : String?){
+    fileprivate var list : List?
+    fileprivate var after : String? = ""
+    fileprivate var orderBySortValue : String? = "mostPopular"
+    fileprivate let sortingValueArray : [String] = ["Набирающие популярность", "Наиболее комментируемые", "Новые"]
+    
+    func getRequest(){
         
-        var parameters : [String : Any] = [:]
         let first = 20
+        var parameters : [String : Any] = [:]
         
-        if after == "" || orderBy == ""{
-            
-            if after == ""{
-                parameters = ["first" : first]
-            }else{
-                parameters = ["first" : first, "after" : "\(after!)"]
-            }
-            
-            if orderBy == ""{
-                parameters = ["first" : first]
-            }else{
-                parameters = ["first" : first, "orderBy" : "\(orderBy!)"]
-            }
-            
-            if after == "" && orderBy == ""{
-                parameters = ["first" : first]
-            }else{
-                parameters = ["first" : first, "after" : "\(after!)", "orderBy" : "\(orderBy!)"]
-            }
-            
+        if after == ""{
+            parameters =  ["first" : first, "orderBy" : orderBySortValue!]
         }else{
-            parameters = ["first" : first, "after" : "\(after!)", "orderBy" : "\(orderBy!)"]
+            parameters =  ["first" : first, "after" : after!, "orderBy" : orderBySortValue!]
         }
         
-        let url = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
-        
-        networkDataFetcher?.fetchList(urlString: url, httpMethod: "GET", parameters: parameters) { [self] (result) in
+        networkDataFetcher?.fetchList(parameters: parameters) { [self] (result) in
             guard let result = result else { return }
-            list = result
-            presenter?.viewData(list: result)
             
+            if after == ""{
+                self.list = result
+                
+            }else{
+                guard let list = list else { return }
+                let item = list.data?.items
+                
+                guard item != nil else {
+                    presenter?.viewError(errorMessage : "\(list.errors![0].orderBy!)")
+                    return
+                }
+                self.list?.data?.items?.append(contentsOf: item!)
+            }
+            after = result.data?.cursor
+            presenter?.viewData(list: list)
         }
     }
     
     func dataSorting(){
-        let sortingValueArray = ["Набирающие популярность", "Наиболее комментируемые", "Новые"]
+        
         presenter?.viewSorting(sortingValueArray: sortingValueArray)
+    }
+    
+    func sortingDataProcessing(indexSort : Int?){
+        
+        switch sortingValueArray[indexSort!] {
+        case "Набирающие популярность":
+            self.orderBySortValue = "mostPopular"
+        case "Наиболее комментируемые":
+            self.orderBySortValue = "mostCommented"
+        case "Новые":
+            self.orderBySortValue = "createdAt"
+        default:
+            self.orderBySortValue = "mostPopular"
+        }
+        
+        self.after = ""
+        getRequest()
     }
 }
